@@ -18,13 +18,4 @@ public class Order {
     private String status;
     private String timestamp;
     private BigDecimal totalPrice;
-
-/*    public Order(CreateOrderDto createOrderDto) {
-        this.id = createOrderDto.id();
-        this.customer = createOrderDto.customer();
-        this.products = createOrderDto.products();
-        this.status = "Recebido";
-        this.timestamp = createOrderDto.timestamp();
-        this.totalPrice = createOrderDto.totalPrice();
-    }*/
 }
