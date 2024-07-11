@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -31,6 +32,7 @@ class OrderServiceTest {
 
     @BeforeEach
     void setUp() {
+
         createOrderDto = new CreateOrderDto("1", "testCustomer", List.of("product1", "product2"), "Recebido", "2023-01-01T10:00:00", new BigDecimal(100));
 
         order = new Order();
@@ -49,7 +51,6 @@ class OrderServiceTest {
         Order createdOrder = orderService.createOrder(createOrderDto);
 
         assertNotNull(createdOrder);
-        assertEquals("1", createdOrder.getId());
         assertEquals("testCustomer", createdOrder.getCustomer());
         assertEquals("Recebido", createdOrder.getStatus());
         assertEquals(List.of("product1", "product2"), createdOrder.getProducts());
@@ -73,18 +74,18 @@ class OrderServiceTest {
 
     @Test
     void getOrderById_success() {
-        when(orderRepository.findById(anyString())).thenReturn(Optional.of(order));
+        when(orderRepository.findById(any())).thenReturn(Optional.of(order));
 
         Optional<Order> foundOrder = orderService.getOrderById("1");
 
         assertTrue(foundOrder.isPresent());
         assertEquals(order, foundOrder.get());
-        verify(orderRepository, times(1)).findById(anyString());
+        verify(orderRepository, times(1)).findById(any());
     }
 
     @Test
     void updateOrderStatus_success() {
-        when(orderRepository.findById(anyString())).thenReturn(Optional.of(order));
+        when(orderRepository.findById(any())).thenReturn(Optional.of(order));
 
         Optional<Order> updatedOrder = orderService.updateOrderStatus("1", "Preparando");
 

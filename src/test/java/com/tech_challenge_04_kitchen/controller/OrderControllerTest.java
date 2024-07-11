@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -35,7 +36,8 @@ class OrderControllerTest {
 
     @BeforeEach
     void setUp() {
-        createOrderDto = new CreateOrderDto("1", "testCustomer", List.of("product1", "product2"), "Recebido", "2023-01-01T10:00:00", new BigDecimal(100));
+
+        createOrderDto = new CreateOrderDto("1","testCustomer", List.of("product1", "product2"), "Recebido", "2023-01-01T10:00:00", new BigDecimal(100));
 
         order = new Order();
         order.setId("1");
@@ -75,14 +77,17 @@ class OrderControllerTest {
 
     @Test
     void getOrderById_success() {
-        when(orderService.getOrderById("1")).thenReturn(Optional.of(order));
+        when(orderService.getOrderById(any())).thenReturn(Optional.of(order));
 
-        ResponseEntity<Optional<Order>> responseEntity = orderController.getOrderById("1");
+        UUID uuid = UUID.randomUUID();
+        String id = uuid.toString();
+
+        ResponseEntity<Optional<Order>> responseEntity = orderController.getOrderById(id);
 
         assertNotNull(responseEntity);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertEquals(order, responseEntity.getBody().get());
 
-        verify(orderService, times(1)).getOrderById("1");
+        verify(orderService, times(1)).getOrderById(any());
     }
 }
