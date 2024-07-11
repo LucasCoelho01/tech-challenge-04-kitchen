@@ -1,15 +1,16 @@
 package com.tech_challenge_04_kitchen.entity;
 
-import com.tech_challenge_04_kitchen.entity.dto.CreateOrderDto;
+import jakarta.persistence.*;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.UUID;
 
 @Data
-@Document(collection = "orders")
+@Entity
+@Table(name = "orders")
 public class Order {
     @Id
     private String id;
@@ -18,4 +19,6 @@ public class Order {
     private String status;
     private String timestamp;
     private BigDecimal totalPrice;
+
+    public Order() {}
 }
