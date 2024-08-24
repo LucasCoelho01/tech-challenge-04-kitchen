@@ -21,7 +21,7 @@ public class OrderService {
 
         order.setId(createOrderDto.id());
         order.setCustomer(createOrderDto.customer());
-        order.setStatus("Recebido");
+        order.setStatus("Pedido Recebido");
         order.setProducts(createOrderDto.products());
         order.setTimestamp(createOrderDto.timestamp());
         order.setTotalPrice(createOrderDto.totalPrice());
