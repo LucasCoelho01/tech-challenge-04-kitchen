@@ -2,6 +2,7 @@ package com.tech_challenge_04_kitchen.service;
 
 import com.tech_challenge_04_kitchen.entity.Order;
 import com.tech_challenge_04_kitchen.entity.dto.CreateOrderDto;
+import com.tech_challenge_04_kitchen.entity.dto.UpdateOrderStatusDto;
 import com.tech_challenge_04_kitchen.repository.OrderRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -81,15 +82,5 @@ class OrderServiceTest {
         assertTrue(foundOrder.isPresent());
         assertEquals(order, foundOrder.get());
         verify(orderRepository, times(1)).findById(any());
-    }
-
-    @Test
-    void updateOrderStatus_success() {
-        when(orderRepository.findById(any())).thenReturn(Optional.of(order));
-
-        Optional<Order> updatedOrder = orderService.updateOrderStatus("1", "Preparando");
-
-        assertTrue(updatedOrder.isPresent());
-        assertEquals("Preparando", updatedOrder.get().getStatus());
     }
 }

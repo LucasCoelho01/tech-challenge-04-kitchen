@@ -43,4 +43,13 @@ public class OrderServiceSaga {
         rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE_KITCHEN_RESPONSE, json);
         System.out.println("Enviado queue QUEUE_KITCHEN_RESPONSE");
     }
+
+    public void sendUpdateOrder(Order order) {
+        Gson gson = new Gson();
+
+        String json = gson.toJson(order);
+
+        rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE_KITCHEN_UPDATE, json);
+        System.out.println("Enviado queue QUEUE_KITCHEN_UPDATE");
+    }
 }
